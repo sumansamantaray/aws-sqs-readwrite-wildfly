@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @EnableJms
 public class AmazonAwsSqsListener {
 	
-//	@JmsListener(destination="east-sumantestsqs-1")
+	@JmsListener(destination="east-sumantestsqs-1")
 	public void messageListener(TextMessage textMessage) throws Exception {
 		
 		try {
@@ -26,6 +26,8 @@ public class AmazonAwsSqsListener {
 		} catch (JMSException jmsExp) {
 			
 		}
+		// This is a check if message is moved to dead letter queue.
+		// The application will throw exception and message would be moved to DLQ.
 		if ("Throw Exception".equalsIgnoreCase(textMessage.getText())) {
 			throw new Exception();
 		}
